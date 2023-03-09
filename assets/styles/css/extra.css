@@ -2928,6 +2928,7 @@ a.Cart-title {
   margin-top: 20px;
   margin-bottom: auto;
   width: 100%;
+  /* min-height: 200vh; */
 }
 .Middle:before,
 .Middle:after {
