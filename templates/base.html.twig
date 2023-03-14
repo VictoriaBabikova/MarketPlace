@@ -1,6 +1,6 @@
 {% block head %}
 <head>
-  {% block title %} {% endblock %}
+{% block title %} {% endblock %}
   <meta name="description" content="Товарный агрегатор Megano">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
@@ -49,7 +49,7 @@
           <div class="menuModal" id="navigate">
             <ul class="menu menu_main">
               <li class="menu-item"><a class="menu-link" href="{{ path('app_homepage') }}">Главная</a></li>
-              <li class="menu-item"><span class="menu-label menu-label_danger">Hot</span><a class="menu-link" href="{{path('app_catalog')}}">Каталог</a></li>
+              <li class="menu-item"><span class="menu-label menu-label_danger">Hot</span><a class="menu-link" href="{{path('app_homepage')}}">Каталог</a></li>
               <li class="menu-item"><span class="menu-label menu-label_success">New</span><a class="menu-link" href="{{path('app_sale')}}">Скидки</a></li>
               <li class="menu-item"><a class="menu-link" href="{{path('app_contact')}}">Контакты</a></li>
             </ul>
@@ -77,72 +77,35 @@
               <div class="CategoriesButton-arrow"></div>
             </div>
             <div class="CategoriesButton-content">
-              <div class="CategoriesButton-link"><a href="#">
-                  <div class="CategoriesButton-icon"><img src="{{asset('build/images/icons/departments/1.svg')}}" alt="1.svg"/>
-                  </div><span class="CategoriesButton-text">Accessories</span></a>
+            
+            {% for category in categories %}  
+              <div class="CategoriesButton-link">
+                <form class="category_form" action="{{path('app_catalog')}}" method="post">
+                    <div class="CategoriesButton-icon">
+                      <img src="{{asset(category.imagepath)}}" alt="{{category.imagepath}}"/>
+                    </div>
+                      <div class="CategoriesButton-text">
+                        <input  type="submit" name="category" value="{{category.category}}">
+                      </div> 
+                    <a class="CategoriesButton-arrow" href="#"></a>
+                </form>
+                  {% if category.subCategories %}
+                    <div class="CategoriesButton-submenu">
+                    {% for subCategory in category.subCategories %}   
+                        <form class="category_form" action="{{path('app_catalog')}}" method="post"> 
+                          <input type="hidden" value="{{subCategory.subCategory}}">
+                          <div class="CategoriesButton-icon">
+                            <img src="{{asset(subCategory.imagepath)}}" alt="1.svg"/>
+                          </div>
+                          <div class="CategoriesButton-text">
+                            <input type="submit" name="category" value="{{subCategory.subCategory}}">
+                          </div>
+                        </form> 
+                    {% endfor %}  
+                    </div>
+                  {% endif %}
               </div>
-              <div class="CategoriesButton-link"><a href="#">
-                  <div class="CategoriesButton-icon"><img src="{{asset('build/images/icons/departments/2.svg')}}" alt="2.svg"/>
-                  </div><span class="CategoriesButton-text">Bags</span></a>
-              </div>
-              <div class="CategoriesButton-link"><a href="#">
-                  <div class="CategoriesButton-icon"><img src="{{asset('build/images/icons/departments/3.svg')}}" alt="3.svg"/>
-                  </div><span class="CategoriesButton-text">Cameras</span></a><a class="CategoriesButton-arrow" href="#"></a>
-                <div class="CategoriesButton-submenu"><a class="CategoriesButton-link" href="#">
-                    <div class="CategoriesButton-icon"><img src="{{asset('build/images/icons/departments/1.svg')}}" alt="1.svg"/>
-                    </div><span class="CategoriesButton-text">Accessories</span></a><a class="CategoriesButton-link" href="#">
-                    <div class="CategoriesButton-icon"><img src="{{asset('build/images/icons/departments/2.svg')}}" alt="2.svg"/>
-                    </div><span class="CategoriesButton-text">Bags</span></a>
-                </div>
-              </div>
-              <div class="CategoriesButton-link"><a href="#">
-                  <div class="CategoriesButton-icon"><img src="{{asset('build/images/icons/departments/4.svg')}}" alt="4.svg"/>
-                  </div><span class="CategoriesButton-text">Clothings</span></a>
-              </div>
-              <div class="CategoriesButton-link"><a href="#">
-                  <div class="CategoriesButton-icon"><img src="{{asset('build/images/icons/departments/5.svg')}}" alt="5.svg"/>
-                  </div><span class="CategoriesButton-text">Electronics</span></a>
-              </div>
-              <div class="CategoriesButton-link"><a href="#">
-                  <div class="CategoriesButton-icon"><img src="{{asset('build/images/icons/departments/6.svg')}}" alt="6.svg"/>
-                  </div><span class="CategoriesButton-text">Fashion</span></a>
-              </div>
-              <div class="CategoriesButton-link"><a href="#">
-                  <div class="CategoriesButton-icon"><img src="{{asset('build/images/icons/departments/7.svg')}}" alt="7.svg"/>
-                  </div><span class="CategoriesButton-text">Furniture</span></a><a class="CategoriesButton-arrow" href="#"></a>
-                <div class="CategoriesButton-submenu"><a class="CategoriesButton-link" href="#">
-                    <div class="CategoriesButton-icon"><img src="{{asset('build/images/icons/departments/1.svg')}}" alt="1.svg"/>
-                    </div><span class="CategoriesButton-text">Accessories</span></a><a class="CategoriesButton-link" href="#">
-                    <div class="CategoriesButton-icon"><img src="{{asset('build/images/icons/departments/2.svg')}}" alt="2.svg"/>
-                    </div><span class="CategoriesButton-text">Bags</span></a>
-                </div>
-              </div>
-              <div class="CategoriesButton-link"><a href="#">
-                  <div class="CategoriesButton-icon"><img src="{{asset('build/images/icons/departments/8.svg')}}" alt="8.svg"/>
-                  </div><span class="CategoriesButton-text">Lightings</span></a>
-              </div>
-              <div class="CategoriesButton-link"><a href="#">
-                  <div class="CategoriesButton-icon"><img src="{{asset('build/images/icons/departments/9.svg')}}" alt="9.svg"/>
-                  </div><span class="CategoriesButton-text">Mobiles</span></a>
-              </div>
-              <div class="CategoriesButton-link"><a href="#">
-                  <div class="CategoriesButton-icon"><img src="{{asset('build/images/icons/departments/10.svg')}}" alt="10.svg"/>
-                  </div><span class="CategoriesButton-text">Trends</span></a>
-              </div>
-              <div class="CategoriesButton-link"><a href="#">
-                  <div class="CategoriesButton-icon"><img src="{{asset('build/images/icons/departments/11.svg')}}" alt="11.svg"/>
-                  </div><span class="CategoriesButton-text">More</span></a><a class="CategoriesButton-arrow" href="#"></a>
-                <div class="CategoriesButton-submenu"><a class="CategoriesButton-link" href="#">
-                    <div class="CategoriesButton-icon"><img src="{{asset('build/images/icons/departments/1.svg')}}" alt="1.svg"/>
-                    </div><span class="CategoriesButton-text">Accessories</span></a><a class="CategoriesButton-link" href="#">
-                    <div class="CategoriesButton-icon"><img src="{{asset('build/images/icons/departments/2.svg')}}" alt="2.svg"/>
-                    </div><span class="CategoriesButton-text">Bags</span></a>
-                </div>
-              </div>
-              <div class="CategoriesButton-link"><a href="#">
-                  <div class="CategoriesButton-icon"><img src="{{asset('build/images/icons/departments/12.svg')}}" alt="12.svg"/>
-                  </div><span class="CategoriesButton-text">Lightings</span></a>
-              </div>
+            {% endfor %}
             </div>
           </div>
         </div>

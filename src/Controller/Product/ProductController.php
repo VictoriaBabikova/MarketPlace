@@ -1,6 +1,8 @@
 <?php
 namespace App\Controller\Product;
 
+use App\Repository\ProductRepository;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -34,9 +36,13 @@ class ProductController extends AbstractController
     /**
      * @Route("/product", name="app_product")
     */
-    public function productpage()
+    public function productpage(Request $request, ProductRepository $productRepository)
     {
-        return $this->render('product.html.twig');
+        
+        $product = $productRepository->findProduct($request->get('prodId'));
+        return $this->render('product.html.twig', [
+            'product' => $product[0],
+        ]);
     }
 
     /**

@@ -876,8 +876,17 @@
   padding-bottom: 8px;
   margin-bottom: 3px;
 }
-.Card-title a {
+
+.btnprod
+{
+  color: #0063d1;
+  background: none;
+}
+
+.Card-content input {
   color: #000;
+  border: none;
+  color: #0064c9;
 }
 .Card-description {
   margin-top: 5px;
@@ -1800,6 +1809,17 @@ a.Cart-title {
     width: auto;
   }
 }
+.category_form
+{
+  display: flex;
+  margin: 10px 0;
+}
+
+.CategoriesButton-text input
+{
+  cursor: pointer;
+}
+
 .CategoriesButton-title,
 .CategoriesButton-link {
   padding: 29px 30px 25px 0;
@@ -1866,12 +1886,13 @@ a.Cart-title {
     display: block !important;
   }
 }
-.CategoriesButton-link a {
+.CategoriesButton-link input {
   align-items: center;
   display: flex;
   padding: 29px 30px 25px 0;
   background: transparent;
-  color: #555;
+  color: #0e0e0e;
+  border: none;
   padding-top: 12px;
   padding-bottom: 12.5px;
   font-size: 16px;
