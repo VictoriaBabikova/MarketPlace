@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+{% block title %}<title>registration</title>{% endblock %}
+{% block body %}
+<body class="Site">
+{# открытие тега header происходит в base.html.twig #}
+  </header>
+  <div class="Middle Middle_top">
+    <div class="Middle-top">
+      <div class="wrap">
+        <div class="Middle-header">
+          <h1 class="Middle-title">Регистрация</h1>
+          <ul class="breadcrumbs Middle-breadcrumbs">
+            <li class="breadcrumbs-item"><a href="{{path('app_homepage')}}">Главная</a></li>
+            <li class="breadcrumbs-item breadcrumbs-item_current"><span>Регистрация</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="Section">
+        <div class="wrap">
+            {{ form_start(registrationForm, {'attr': {'class': 'form Authorization'}}) }}
+                <div class="row">
+                    <div class="row-block">
+                        <div class="form-group">
+                            {{ form_row(registrationForm.phone, {
+                                label: 'Телефон',
+                                label_attr: {'class': 'form-label'}
+                            }) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_row(registrationForm.email, {
+                                label: 'E-mail',
+                                label_attr: {'class': 'form-label'}
+                            }) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_row(registrationForm.plainPassword, {
+                                label: 'Пароль',
+                                label_attr: {'class': 'form-label'}
+                            }) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_row(registrationForm.replyPassword, {
+                                label: 'Подтверждение пароля',
+                                label_attr: {'class': 'form-label'}
+                            }) }}
+                            {% if error %}
+                                <p style="color:red">{{ error }}</p>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn_primary">Зарегистрироваться</button>
+                        </div>
+                    </div>
+                </div>
+            {{ form_end(registrationForm) }}   
+        </div>
+    </div>
+  </div>
+</body></html>
+{% endblock %}

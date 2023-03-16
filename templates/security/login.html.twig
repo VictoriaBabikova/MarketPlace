@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-{% block title %}<title>login-in</title>{% endblock %}
+{% block title %}<title>log-in</title>{% endblock %}
 {% block body %}
 <body class="Site">
 {# открытие тега header происходит в base.html.twig #}
@@ -21,15 +21,24 @@
         <form class="form Authorization" action="#" method="post">
           <div class="row">
             <div class="row-block">
+            {% if app.user %}
+              <div class="mb-3">
+                  Вы уже вошли в систему как {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+              </div>
+            {% endif %}
               <div class="form-group">
                 <label class="form-label" for="phone">Телефон</label>
-                <input class="form-input" id="phone" name="phone" type="text" placeholder="+70000000000"/>
+                <input class="form-input" value="{{ last_username }}" id="phone" name="phone" type="text" autocomplete="username" required autofocus placeholder="+70000000000"/>
               </div>
               <div class="form-group">
                 <label class="form-label" for="password">Пароль</label>
-                <input class="form-input" id="password" name="password" type="password" placeholder="Ваш пароль"/>
+                <input class="form-input" id="password" name="password" type="password" autocomplete="current-password" placeholder="Ваш пароль"/>
+                {% if error %}
+                  <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+              {% endif %}
               </div>
               <div class="form-group">
+                  <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                   <button class="btn btn_primary" type="submit">Войти</button>
               </div>
             </div>
