@@ -3801,6 +3801,9 @@ a.Cart-title {
   justify-content: center;
   text-align: center;
   align-items: center;
+  color: #636363;
+  border: 1px solid #ccc;
+  border-radius: 8px;
 }
 .Profile-avatar {
   height: 293px;
@@ -3811,9 +3814,9 @@ a.Cart-title {
   border: 1px solid #e0e0e0;
   position: relative;
 }
-.Profile-avatar_noimg .Profile-img {
+/* .Profile-avatar_noimg .Profile-img {
   display: none;
-}
+} */
 .Profile-success {
   color: #3cb878;
   display: block;
@@ -3830,7 +3833,7 @@ a.Cart-title {
   justify-content: center;
   align-items: center;
   background: #fff;
-  z-index: 10;
+  /* z-index: 10; */
   position: relative;
 }
 .Profile-img img {

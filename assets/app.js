@@ -19,7 +19,7 @@ require('./styles/js/scripts.js');
 
 require('./styles/plg/CountDown/countdown.js');
 require('./styles/plg/CountDown/jquery.countdown.js');
-
+//require('./styles/js/bootstrap_file_field.js')
 
 // start the Stimulus application
 import './bootstrap';
