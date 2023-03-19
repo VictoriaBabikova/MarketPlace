@@ -21,7 +21,6 @@ class BaseController extends AbstractController
             $rendomActiveBanner[] = $banners[rand(0, count($banners)-1)];
         }
         
-        //dd($rendomActiveBanner);
         return $this->render('index.html.twig', [
             'banners' => $rendomActiveBanner,
         ]);
@@ -57,7 +56,6 @@ class BaseController extends AbstractController
     public function catalogpage(Request $request, ProductRepository $productRepository)
     {
         $products = $productRepository->findByProducts($request->request->get('category'));
-        //dd($products);
         return $this->render('catalog.html.twig', [
             'products' => $products
         ]);

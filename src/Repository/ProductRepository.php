@@ -54,15 +54,25 @@ class ProductRepository extends ServiceEntityRepository
         ;
     }
 
-    public function findProduct($value): array
+    public function findAllProducts(): array
+    {
+        return $this->createQueryBuilder('p')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function findProduct($value): ?Product
     {
         return $this->createQueryBuilder('p')
             ->leftJoin('p.category', 'c')
             ->addSelect('c')
+            ->leftJoin('p.sellers', 's')
+            ->addSelect('s')
             ->andWhere('p.id = :val')
             ->setParameter('val', $value)
             ->getQuery()
-            ->getResult()
+            ->getOneOrNullResult()
         ;
     }
 }

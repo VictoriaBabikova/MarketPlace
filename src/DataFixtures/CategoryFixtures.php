@@ -2,11 +2,12 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Banner;
 use Faker\Factory;
 use Faker\Generator;
-use App\Entity\Category;
+use App\Entity\Banner;
+use App\Entity\Seller;
 use App\Entity\Product;
+use App\Entity\Category;
 use App\Entity\SubCategory;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -43,7 +44,7 @@ class CategoryFixtures extends Fixture
         ];
 
         foreach ($arrayCategory as $key => $value) {
-            $category = new Category();
+            $category = new Category(); // loading category
                 $category
                 ->setCategory($key)
                 ->setImagepath($value)
@@ -75,7 +76,7 @@ class CategoryFixtures extends Fixture
                 }
             }
             for ($i=0; $i < 10; $i++) {
-                $product = new Product;
+                $product = new Product; //loading product
                 $product
                 ->setCategory($category)
                 ->setProductname($this->faker->sentence($nbWords = 3, $variableNbWords = true))
@@ -86,7 +87,7 @@ class CategoryFixtures extends Fixture
                 ->setSpecifications($this->faker->paragraph($nbSentences = 3, $variableNbSentences = true))
                 ;
 
-                $banner = new Banner;
+                $banner = new Banner; // loading banner
                 $banner
                     ->setBannername($product->getProductname())
                     ->setBannerinfo($product->getInfo())
@@ -94,6 +95,7 @@ class CategoryFixtures extends Fixture
                     ->setActive($this->faker->boolean(50))
                     ->setProduct($product)
                 ;
+
                 $manager->persist($banner);
 
                 $manager->persist($product);

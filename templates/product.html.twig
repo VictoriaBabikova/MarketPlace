@@ -63,7 +63,8 @@
               <a class="Tabs-link_ACTIVE Tabs-link" href="#description"><span>Описание</span></a>
               <a class="Tabs-link" href="#sellers"><span>Продавцы</span></a>
               <a class="Tabs-link" href="#addit"><span>Характеристики</span></a>
-              <a class="Tabs-link" href="#reviews"><span>Отзывы (3)</span></a>
+              <a class="Tabs-link" href="#reviews">
+              <span>{% if feedbacks %}Отзывы({{ feedbacks|length }}){% else %} Отзывы {% endif %} </span></a>
             </div>
             <div class="Tabs-wrap">
               <div class="Tabs-block" id="description">
@@ -103,71 +104,27 @@
                 </div>
               </div>
               <div class="Tabs-block" id="sellers">
+              
                 <div class="Categories Categories_product">
+                  {% for seller in product.sellers %}
+                  
                   <div class="Categories-row">
                     <div class="Categories-block Categories-block_info">
                       <div class="Categories-info">
-                        <strong>Очень дешево
+                        <strong>{{seller.name}}
                         </strong>
                       </div>
                     </div>
                     <div class="Categories-splitProps">
                     </div>
                     <div class="Categories-block Categories-price">
-                      <strong>€&#32;40.58
+                      $&#32;<strong>{{(product.pricein - (product.pricein / 100) * seller.discount)|number_format}} / {{seller.discount}}%
                       </strong>
                     </div>
                     <div class="Categories-block Categories-button"><a class="btn btn_primary" href="#"><img class="btn-icon" src="{{asset('build/images/icons/card/cart_white.svg')}}" alt="cart_white.svg"/><span class="btn-content">Купить</span></a>
                     </div>
                   </div>
-                  <div class="Categories-row">
-                    <div class="Categories-block Categories-block_info">
-                      <div class="Categories-info">
-                        <strong>pleer.ru
-                        </strong>
-                      </div>
-                    </div>
-                    <div class="Categories-splitProps">
-                    </div>
-                    <div class="Categories-block Categories-price">
-                      <strong>€&#32;69.04
-                      </strong>
-                    </div>
-                    <div class="Categories-block Categories-button"><a class="btn btn_primary" href="#"><img class="btn-icon" src="{{asset('build/images/icons/card/cart_white.svg')}}" alt="cart_white.svg"/><span class="btn-content">Купить</span></a>
-                    </div>
-                  </div>
-                  <div class="Categories-row">
-                    <div class="Categories-block Categories-block_info">
-                      <div class="Categories-info">
-                        <strong>citilink.ru
-                        </strong>
-                      </div>
-                    </div>
-                    <div class="Categories-splitProps">
-                    </div>
-                    <div class="Categories-block Categories-price">
-                      <strong>€&#32;112.69
-                      </strong>
-                    </div>
-                    <div class="Categories-block Categories-button"><a class="btn btn_primary" href="#"><img class="btn-icon" src="{{asset('build/images/icons/card/cart_white.svg')}}" alt="cart_white.svg"/><span class="btn-content">Купить</span></a>
-                    </div>
-                  </div>
-                  <div class="Categories-row">
-                    <div class="Categories-block Categories-block_info">
-                      <div class="Categories-info">
-                        <strong>М.Видео
-                        </strong>
-                      </div>
-                    </div>
-                    <div class="Categories-splitProps">
-                    </div>
-                    <div class="Categories-block Categories-price">
-                      <strong>€&#32;197.32
-                      </strong>
-                    </div>
-                    <div class="Categories-block Categories-button"><a class="btn btn_primary" href="#"><img class="btn-icon" src="{{asset('build/images/icons/card/cart_white.svg')}}" alt="cart_white.svg"/><span class="btn-content">Купить</span></a>
-                    </div>
-                  </div>
+                  {% endfor %}
                 </div>
               </div>
               <div class="Tabs-block" id="addit">
@@ -180,21 +137,27 @@
               <div class="Tabs-block" id="reviews">
                 <div class="Comments">
                   <div class="Comment">
-                    <div class="Comment-column Comment-column_pict">
-                      <div class="Comment-avatar">
-                      </div>
-                    </div>
-                    <div class="Comment-column">
-                      <header class="Comment-header">
-                        <div>
-                          <strong class="Comment-title">Alexandra Brownie
-                          </strong><span class="Comment-date">22:50 - 25 Декабря 2020</span>
+                  {% if feedbacks %}
+                    {% for feedback in feedbacks %}
+                      <div class="Comment-column Comment-column_pict">
+                        <div class="Comment-avatar">
                         </div>
-                      </header>
-                      <div class="Comment-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit doli. Aenean commodo ligula eget dolor. Aenean massa. Cumtipsu sociis natoque penatibus et magnis dis parturient montesti, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eutu, pretiumem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justotuio, rhoncus ut loret, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus element semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae.
+                      </div>
+                      <div class="Comment-column">
+                        <header class="Comment-header">
+                          <div>
+                            <strong class="Comment-title">{{feedback.name}}
+                            </strong><span class="Comment-date">{{feedback.createdAt|date("m/d/Y H:i:s")}}</span>
+                          </div>
+                        </header>
+                        <div class="Comment-content">{{feedback.body}}
+                        </div>
                       </div>
                     </div>
-                  </div>
+                    {% endfor %}
+                  {% else %} 
+                    <p> На этот товар еще нет отзывов. Станьте первым, кто его оценил! </p>
+                  {% endif %}
                 </div>
                 <header class="Section-header Section-header_product">
                   <h3 class="Section-title">Оставить отзыв</h3>

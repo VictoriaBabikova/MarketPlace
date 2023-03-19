@@ -40,9 +40,17 @@ class Product
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: Banner::class)]
     private Collection $banners;
 
+    #[ORM\ManyToMany(targetEntity: Seller::class, mappedBy: 'product')]
+    private Collection $sellers;
+
+    #[ORM\OneToMany(mappedBy: 'product', targetEntity: Feedback::class)]
+    private Collection $feedback;
+
     public function __construct()
     {
         $this->banners = new ArrayCollection();
+        $this->sellers = new ArrayCollection();
+        $this->feedback = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -158,6 +166,63 @@ class Product
             // set the owning side to null (unless already changed)
             if ($banner->getProduct() === $this) {
                 $banner->setProduct(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Seller>
+     */
+    public function getSellers(): Collection
+    {
+        return $this->sellers;
+    }
+
+    public function addSeller(Seller $seller): self
+    {
+        if (!$this->sellers->contains($seller)) {
+            $this->sellers->add($seller);
+            $seller->addProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSeller(Seller $seller): self
+    {
+        if ($this->sellers->removeElement($seller)) {
+            $seller->removeProduct($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Feedback>
+     */
+    public function getFeedback(): Collection
+    {
+        return $this->feedback;
+    }
+
+    public function addFeedback(Feedback $feedback): self
+    {
+        if (!$this->feedback->contains($feedback)) {
+            $this->feedback->add($feedback);
+            $feedback->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFeedback(Feedback $feedback): self
+    {
+        if ($this->feedback->removeElement($feedback)) {
+            // set the owning side to null (unless already changed)
+            if ($feedback->getProduct() === $this) {
+                $feedback->setProduct(null);
             }
         }
 
