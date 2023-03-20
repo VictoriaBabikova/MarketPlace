@@ -42,17 +42,92 @@ class ProductRepository extends ServiceEntityRepository
     /**
     * @return Product[] Returns an array of Product objects
     */
-    public function findByProducts($value): array
-    {
-        return $this->createQueryBuilder('p')
+    public function findByProductsQuery(
+        $value,
+        $price = null,
+        $title = null,
+        $seller = null,
+        $feedbacksOnly = null,
+        $info = null,
+        $popular = null,
+        $priceSort = null,
+        $feedbacks = null,
+        $novelty = null
+    ) {
+
+        $min = null;
+        $max = null;
+        if (isset($price)) {
+            $arrPrice = explode(";", $price);
+            $min = $arrPrice[0];
+            $max = $arrPrice[1];
+        }
+        
+
+        $qb = $this->createQueryBuilder('p')
             ->leftJoin('p.category', 'c')
             ->addSelect('c')
+            ->leftJoin('p.sellers', 's')
+            ->addSelect('s')
             ->andWhere('c.category = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getResult()
+            ->setParameter('val', $value);
+            
+        if ($min !== null && $max !== null) {
+            $qb
+            ->andWhere(
+                $qb->expr()->between('p.pricein', $min, $max)
+            );
+        }
+        if ($title !== null && $title !== "") {
+            $qb
+                ->andWhere('p.productname LIKE :title')
+                ->setParameter('title', "%$title%")
+            ;
+        }
+        if ($seller !== null) {
+            $qb
+                ->andWhere('s.name LIKE :seller')
+                ->setParameter('seller', "%$seller%")
+            ;
+        }
+        if ($feedbacksOnly !== null || $feedbacks == true) {
+            $qb
+                ->innerJoin('p.feedback', 'f')
+                ->addSelect('f')
+            ;
+        }
+        if ($info !== null) {
+            $qb
+                ->andWhere('p.info LIKE :info')
+                ->setParameter('info', "%$info%")
+            ;
+        }
+
+        if ($priceSort !== null) {
+            $qb
+                ->orderBy('p.pricesale', 'ASC');
+        }
+
+        if ($novelty !== null) {
+            $qb
+                ->orderBy('p.createdAt', 'DESC');
+        }
+
+        return $qb;
         ;
     }
+
+    // public function findByProducts($value): array
+    // {
+    //     return $this->createQueryBuilder('p')
+    //         ->leftJoin('p.category', 'c')
+    //         ->addSelect('c')
+    //         ->andWhere('c.category = :val')
+    //         ->setParameter('val', $value)
+    //         ->getQuery()
+    //         ->getResult()
+    //     ;
+    // }
 
     public function findAllProducts(): array
     {
@@ -73,6 +148,15 @@ class ProductRepository extends ServiceEntityRepository
             ->setParameter('val', $value)
             ->getQuery()
             ->getOneOrNullResult()
+        ;
+    }
+
+    public function findTopEightProducts(): array
+    {
+        return $this->createQueryBuilder('p')
+            ->setMaxResults(8)
+            ->getQuery()
+            ->getResult()
         ;
     }
 }

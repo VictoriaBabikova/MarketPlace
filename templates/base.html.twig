@@ -55,7 +55,7 @@
           <div class="menuModal" id="navigate">
             <ul class="menu menu_main">
               <li class="menu-item"><a class="menu-link" href="{{ path('app_homepage') }}">Главная</a></li>
-              <li class="menu-item"><span class="menu-label menu-label_danger">Hot</span><a class="menu-link" href="{{path('app_homepage')}}">Каталог</a></li>
+              <li class="menu-item"><span class="menu-label menu-label_danger">Hot</span><a class="menu-link" href="{{path('app_catalog')}}?category=Accessories">Каталог</a></li>
               <li class="menu-item"><span class="menu-label menu-label_success">New</span><a class="menu-link" href="{{path('app_sale')}}">Скидки</a></li>
               <li class="menu-item"><a class="menu-link" href="{{path('app_contact')}}">Контакты</a></li>
             </ul>
@@ -83,35 +83,22 @@
               <div class="CategoriesButton-arrow"></div>
             </div>
             <div class="CategoriesButton-content">
-            
-            {% for category in categories %}  
-              <div class="CategoriesButton-link">
-                <form class="category_form" action="{{path('app_catalog')}}" method="post">
-                    <div class="CategoriesButton-icon">
-                      <img src="{{asset(category.imagepath)}}" alt="{{category.imagepath}}"/>
-                    </div>
-                      <div class="CategoriesButton-text">
-                        <input  type="submit" name="category" value="{{category.category}}">
-                      </div> 
-                    <a class="CategoriesButton-arrow" href="#"></a>
-                </form>
-                  {% if category.subCategories %}
-                    <div class="CategoriesButton-submenu">
-                    {% for subCategory in category.subCategories %}   
-                        <form class="category_form" action="{{path('app_catalog')}}" method="post"> 
-                          <input type="hidden" value="{{subCategory.subCategory}}">
-                          <div class="CategoriesButton-icon">
-                            <img src="{{asset(subCategory.imagepath)}}" alt="1.svg"/>
-                          </div>
-                          <div class="CategoriesButton-text">
-                            <input type="submit" name="category" value="{{subCategory.subCategory}}">
-                          </div>
-                        </form> 
-                    {% endfor %}  
-                    </div>
-                  {% endif %}
-              </div>
-            {% endfor %}
+              {% for category in categories %}
+                <div class="CategoriesButton-link"><a href="{{ path('app_catalog', {category: category.category}) }}">
+                    <div class="CategoriesButton-icon"><img src="{{asset(category.imagepath)}}" alt="{{category.imagepath}}"/>
+                    </div><span class="CategoriesButton-text">{{category.category}}</span></a><a class="CategoriesButton-arrow" href="#"></a>
+
+                    {% if category.subCategories %}
+                      <div class="CategoriesButton-submenu">
+                        {% for subCategory in category.subCategories %}
+                          <a class="CategoriesButton-link" href="{{ path('app_catalog', {category: subCategory.subCategory}) }}">
+                              <div class="CategoriesButton-icon"><img src="{{asset(subCategory.imagepath)}}" alt="{{subCategory.imagepath}}"/>
+                              </div><span class="CategoriesButton-text">{{subCategory.subCategory}}</span></a>
+                        {% endfor %}
+                      </div>
+                    {% endif %}
+                </div>
+              {% endfor %}
             </div>
           </div>
         </div>
@@ -148,7 +135,7 @@
           <strong class="Footer-title">Навигация</strong>
           <ul class="menu menu_vt Footer-menu">
             <li class="menu-item"><a class="menu-link" href="{{path('app_homepage')}}">Главная</a></li>
-            <li class="menu-item"><a class="menu-link" href="{{path('app_catalog')}}">Каталог</a></li>
+            <li class="menu-item"><a class="menu-link" href="{{path('app_catalog')}}?category=Accessories">Каталог</a></li>
             <li class="menu-item"><a class="menu-link" href="{{path('app_sale')}}">Скидки</a></li>
           </ul>
         </div>

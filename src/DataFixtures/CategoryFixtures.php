@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use DateTime;
 use Faker\Factory;
 use Faker\Generator;
 use App\Entity\Banner;
@@ -22,6 +23,8 @@ class CategoryFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         $this->faker = Factory::create();
+
+        $date = new DateTime();
 
         $arrayCategory = [
             "Accessories" => "build/images/icons/departments/1.svg",
@@ -85,6 +88,7 @@ class CategoryFixtures extends Fixture
                 ->setInfo($this->faker->text(150))
                 ->setImagepath('build/images/content/home/bigGoods.png')
                 ->setSpecifications($this->faker->paragraph($nbSentences = 3, $variableNbSentences = true))
+                ->setCreatedAt($this->faker->dateTimeBetween('-100 days', '-1 day'))
                 ;
 
                 $banner = new Banner; // loading banner

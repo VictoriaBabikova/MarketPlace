@@ -1886,7 +1886,7 @@ a.Cart-title {
     display: block !important;
   }
 }
-.CategoriesButton-link input {
+.CategoriesButton-link a {
   align-items: center;
   display: flex;
   padding: 29px 30px 25px 0;
@@ -1933,7 +1933,7 @@ a.Cart-title {
   margin-right: 17px;
   min-width: 26px;
   max-width: 26px;
-  display: flex;
+  display: inline-flex;
   justify-content: center;
   align-items: center;
 }
@@ -5145,6 +5145,7 @@ a.Cart-title {
   visibility: visible;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   margin-bottom: 70px;
   background: url(../img/bg/lineHeaderSection.png) 0 11px repeat-x;
 }

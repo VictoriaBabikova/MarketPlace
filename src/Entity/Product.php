@@ -2,14 +2,18 @@
 
 namespace App\Entity;
 
-use App\Repository\ProductRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ProductRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 class Product
 {
+    use TimestampableEntity;
+    
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -45,6 +49,9 @@ class Product
 
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: Feedback::class)]
     private Collection $feedback;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private $publishedAt = null;
 
     public function __construct()
     {
@@ -227,5 +234,22 @@ class Product
         }
 
         return $this;
+    }
+
+    public function getPublishedAt(): ?\DateTimeInterface
+    {
+        return $this->publishedAt;
+    }
+
+    public function setPublishedAt(?\DateTimeInterface $publishedAt): self
+    {
+        $this->publishedAt = $publishedAt;
+
+        return $this;
+    }
+
+    public function isPublished(): bool
+    {
+        return null !== $this->getPublishedAt();
     }
 }

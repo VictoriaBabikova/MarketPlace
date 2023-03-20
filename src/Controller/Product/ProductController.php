@@ -5,6 +5,8 @@ use DateTime;
 use App\Entity\Feedback;
 use App\Repository\FeedbackRepository;
 use App\Repository\ProductRepository;
+use App\Repository\SellerRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -32,9 +34,13 @@ class ProductController extends AbstractController
     /**
      * @Route("/shop", name="app_shop")
      */
-    public function shoppage()
+    public function shoppage(Request $request, SellerRepository $sellerrepository)
     {
-        return $this->render('shop.html.twig');
+        $seller = $sellerrepository->findOneSeller(htmlspecialchars(trim($request->query->get('seller'))));
+        //dd($seller);
+        return $this->render('shop.html.twig', [
+            'seller' => $seller
+        ]);
     }
 
     /**
@@ -75,8 +81,12 @@ class ProductController extends AbstractController
     /**
      * @Route("/account", name="app_account")
     */
-    public function accountpage()
+    public function accountpage(Request $request, UserRepository $userRepository)
     {
-        return $this->render('account.html.twig');
+        $phone  = $request->query->get('phone');
+        $user = $userRepository->findByPhone($phone);
+        return $this->render('account.html.twig', [
+            'user' => $user,
+        ]);
     }
 }
