@@ -1,13 +1,22 @@
 This project was made with symfony framework.
+-------------------------------------------------
 
 For using it, you need make clone this repository:
 
 - git clone https://github.com/VictoriaBabikova/MarketPlace.git
+----------------------------------------------------
 
+
+
+-------------------------------------------------
 for install of all packages you need run:
 
 - composer install 
+-------------------------------------------------
 
+
+
+-------------------------------------------------
 then run
 
 - yarn install
@@ -15,6 +24,12 @@ then run
 - yarn run dev
 
 this will compile all dependencies.
+
+-------------------------------------------------
+
+
+
+------------------------------------------------
 
 edit your .env file:
 
@@ -26,10 +41,19 @@ to work with the database, you need to create a new database, for example in php
 
 - php bin/console doctrine:database:create
 
+------------------------------------------------
+
+
+
+-----------------------------------------------
 then make migration to db
 
 php bin/console doctrine:migration:migrate
 
+----------------------------------------------
+
+
+------------------------------------------------
 to save dummy data in the database
 
 - php bin/console doctrine:fixtures:load
@@ -56,3 +80,4 @@ Don't worry, it's easy to fix. Just do it:
 
 It is all. You can use this aplication                                                            
 
+------------------------------------------------------------------
