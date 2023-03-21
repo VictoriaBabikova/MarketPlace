@@ -6,7 +6,12 @@ For using it, you need make clone this repository:
 - git clone https://github.com/VictoriaBabikova/MarketPlace.git
 ----------------------------------------------------
 
+---------------------------------------------------
 
+after cloning the repository, you will have a folder with the MarketPlace project. You need run
+ - cd MarketPlace
+and execute all subsequent commands there
+---------------------------------------------------
 
 -------------------------------------------------
 for install of all packages you need run:
