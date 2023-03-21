@@ -48,15 +48,34 @@ to work with the database, you need to create a new database, for example in php
 
 ------------------------------------------------
 
-
-
 -----------------------------------------------
 then make migration to db
 
 php bin/console doctrine:migration:migrate
 
-----------------------------------------------
+If after this command you see an error:
 
+--- PHP Fatal error:  Uncaught LogicException: Symfony Runtime is missing. Try running "composer require symfony/runtime". in /var/www/example/MarketPlace/bin/console:8
+Stack trace:
+#0 {main}
+  thrown in /var/www/example/MarketPlace/bin/console on line 8
+
+Fatal error: Uncaught LogicException: Symfony Runtime is missing. Try running "composer require symfony/runtime". in /var/www/example/MarketPlace/bin/console on line 8
+
+LogicException: Symfony Runtime is missing. Try running "composer require symfony/runtime". in /var/www/example/MarketPlace/bin/console on line 8
+
+Call Stack:
+    0.0002     397016   1. {main}() /var/www/example/MarketPlace/bin/console:0 ----
+
+just run 
+
+- composer require symfony/runtime
+
+and try again 
+
+- php bin/console doctrine:migration:migrate
+
+----------------------------------------------
 
 ------------------------------------------------
 to save dummy data in the database
