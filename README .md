@@ -1,20 +1,22 @@
-This project was made with symfony framework.
+This project was created using symfony framework.
 -------------------------------------------------
 
-For using it, you need make clone this repository:
+To use it, you need to clone this repository:
 
 - git clone https://github.com/VictoriaBabikova/MarketPlace.git
 ----------------------------------------------------
 
 ---------------------------------------------------
 
-after cloning the repository, you will have a folder with the MarketPlace project. You need run
- - cd MarketPlace
-and execute all subsequent commands there
+after cloning the repository, you will have a folder with the MarketPlace project. You need to run:
+
+- cd MarketPlace
+
+and execute all the following commands there
 ---------------------------------------------------
 
 -------------------------------------------------
-for install of all packages you need run:
+to install all packages, you need to run:
 
 - composer install 
 -------------------------------------------------
@@ -28,7 +30,7 @@ then run
 
 - yarn run dev
 
-this will compile all dependencies.
+this will result in compilation of all dependencies.
 
 -------------------------------------------------
 
@@ -87,7 +89,8 @@ Then you will get an error:
 ---------------------------------------------------------------------
   In Lorem.php line 95: (in a Faker lib)
                                                                      
-  join(): Argument #2 ($array) must be of type ?array, string given  
+  join(): Argument #2 ($array) must be of type ?array, string given 
+ 
 --------------------------------------------------------------------- 
 
 Don't worry, it's easy to fix. Just do it:
